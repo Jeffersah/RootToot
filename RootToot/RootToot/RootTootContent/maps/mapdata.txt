@@ -1,0 +1,112 @@
+{
+	# MapData
+	# 000 empty
+	# 100 Vertical
+	# 010 Horz
+	# 001 HasNote
+
+	# Level1
+	item1:
+	{
+		fileloc: lv1
+		# Level 1 spawn squares
+		spawnsqr:
+		{
+			first: 5, 5
+			second: 8, 6
+		}
+		# Level 1 enemies
+		spawns:
+		{
+			# Spawn basic 
+			data:		
+			{
+				time: 96
+				type: 1
+				from: first
+			}
+			data2:
+			{
+				time: 128
+				type: 1
+				from: second
+			}
+			data3:
+			{
+				time: 160
+				type: 1
+				from: first
+			}
+			data4:
+			{
+				time: 480
+				type: 3
+				from: first
+			}
+			data5:
+			{
+				time: 480
+				type: 3
+				from: second
+			}
+			data6:
+			{
+				time: 960
+				type: 5
+				from: first
+			}
+		}
+		plrspawn: 7, 12
+	}
+	item2:
+	{
+		fileloc: lv2
+		spawnsqr:
+		{
+			tl: 2, 3
+			tr: 11, 3
+			bl: 2, 9
+			br: 11, 9
+		}
+		spawns:
+		{ 
+			data:		
+			{
+				time: 96
+				type: 1
+				from: tl
+			}
+			data:		
+			{
+				time: 96
+				type: 1
+				from: tr
+			}
+			data:		
+			{
+				time: 96
+				type: 1
+				from: bl
+			}
+			data:		
+			{
+				time: 96
+				type: 1
+				from: br
+			}
+			data6:
+			{
+				time: 960
+				type: 5
+				from: tl
+			}
+			data6:
+			{
+				time: 1200
+				type: 6
+				from: br
+			}
+		}
+		plrspawn: 6, 6
+	}
+}
