@@ -31,6 +31,8 @@ namespace RootToot
         bool[] valid = new bool[] { false, false, false, false };
         public Enemy5(Point p, Map m, Player target) : base(p, 1, 0, target, m, 5, 600)
         {
+            while (!isInBounds(TargetTile()) || m.myData.Map[TargetTile().X, TargetTile().Y] == 0)
+                direction++;
             image = new AnimatedImage("e5", Globals.StdFrame, 16, 3);
         }
 

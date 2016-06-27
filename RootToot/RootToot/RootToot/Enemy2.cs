@@ -56,6 +56,8 @@ namespace RootToot
             notespawntime = 0;
             stoptime = 0;
             shootdir = 0;
+            while (!isInBounds(TargetTile()) || m.myData.Map[TargetTile().X, TargetTile().Y] == 0)
+                direction++;
         }
 
         public override void Update(Map m)
@@ -79,7 +81,7 @@ namespace RootToot
                 notespawntime--;
             if(GlobalRandom.random.NextDouble() < .15f && notespawntime == 0)
             {
-                stoptime = 16;
+                stoptime = 32;
                 shootdir = GlobalRandom.random.Next(4);
             }
             for (int i = 0; i < 4; i++)
@@ -97,19 +99,19 @@ namespace RootToot
 
             int xDist = player.currentPos.X - currentPos.X;
             int yDist = player.currentPos.Y - currentPos.Y;
-            if (Math.Abs(xDist) > Math.Abs(yDist))
+            if (Math.Abs(xDist) < Math.Abs(yDist))
             {
-                if (xDist > 0 && valid[2])
-                    direction = 2;
-                else if (xDist < 0 && valid[0])
+                if (xDist > 0 && valid[0])
                     direction = 0;
+                else if (xDist < 0 && valid[2])
+                    direction = 2;
             }
             else
             {
-                if (yDist > 0 && valid[1])
-                    direction = 1;
-                else if (yDist < 0 && valid[3])
+                if (yDist > 0 && valid[3])
                     direction = 3;
+                else if (yDist < 0 && valid[1])
+                    direction = 1;
             }
 
             if (!valid[direction])
@@ -120,14 +122,16 @@ namespace RootToot
                         direction = i;
                 }
             }
+            
         }
         public override void Draw(SpriteBatch sb)
         {
             if(stoptime == 0)
                 Camera.draw(sb, image,  Color.White, new Rectangle(currentPos.X + 8, currentPos.Y + 8, 16, 16), -MathHelper.PiOver2 * direction, new Vector2(8,8));
             else
-                Camera.draw(sb, image, Color.White, new Rectangle(currentPos.X + 8, currentPos.Y + 8, 16, 16), -MathHelper.PiOver2 * shootdir, new Vector2(8, 8));
+                Camera.draw(sb, image, Color.White, new Rectangle(currentPos.X + 8, currentPos.Y + 8, 16, 16), -MathHelper.PiOver2 * shootdir + MathHelper.PiOver2, new Vector2(8, 8));
             base.Draw(sb);
         }
+        
     }
 }

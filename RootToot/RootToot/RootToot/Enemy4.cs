@@ -16,6 +16,8 @@ namespace RootToot
         public Enemy4(Point p, Map m, Player target) : base(p, 1, 0, target, m, 4, 600)
         {
             image = new AnimatedImage("e4", Globals.StdFrame, 32, 4);
+            while (!isInBounds(TargetTile()) || m.myData.Map[TargetTile().X, TargetTile().Y] == 0)
+                direction++;
         }
 
         public override void Update(Map m)

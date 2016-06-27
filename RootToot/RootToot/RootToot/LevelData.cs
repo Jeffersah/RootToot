@@ -25,6 +25,8 @@ namespace RootToot
             return HorzMap;
         }
 
+        public Image fromTex;
+
         public static void Load()
         {
             HorzMap = new Image("horz");
@@ -42,13 +44,17 @@ namespace RootToot
 
         public List<Spawner> spawners = new List<Spawner>();
         public List<SpawnOrder> spawnOrders = new List<SpawnOrder>();
+        public List<Point> espawn_possible;
         
         public Point PlayerSpawn;
 
         public LevelData(PropertyObject loadFrom)
         {
+            espawn_possible = new List<Point>();
+
             string img = "maps\\" + loadFrom["fileloc"].value<string>();
             Texture2D colisdata = new Image(img).getTexture();
+            fromTex = new Image(colisdata);
             Map = new int[14, 13];
             Notes = new bool[14, 13];
             PlayerSpawn = loadFrom["plrspawn"].value<Point>();
@@ -67,29 +73,50 @@ namespace RootToot
             int y = 0;
             foreach(Color dat in data)
             {
-                if(dat.R == 255)
+                Map[x, y] = 0;
+                if (dat.R == 255)
                 {
                     Map[x, y] = 1;
                 }
-                else if(dat.G == 255)
+                if(dat.G == 255)
                 {
                     Map[x, y] = 2;
                 }
-                else
-                {
-                    Map[x, y] = 0;
-                }
-                if (dat.B == 255)
+
+                if (dat.B == 200)
                 {
                     Notes[x, y] = true;
                 }
                 else
+                { 
                     Notes[x, y] = false;
+                }
+
                 x++;
+
                 if(x >= 14)
                 {
                     x = 0;
                     y++;
+                }
+            }
+
+            for(int xi = 0; xi < 14; xi++)
+            {
+                for(int yi = 0; yi < 13; yi++)
+                {
+                    if(Map[xi, yi] != 0)
+                    {
+                        for(int d = 0; d < 4; d++)
+                        {
+                            int nx = Helper.adjx(xi, d);
+                            int ny = Helper.adjy(yi, d);
+                            if(nx >= 0 && nx < 14 && ny >= 0 && ny < 13 && Map[nx, ny] == 0)
+                            {
+                                espawn_possible.Add(new Point(nx * Globals.stdTile, ny * Globals.stdTile));
+                            }
+                        }
+                    }
                 }
             }
         }

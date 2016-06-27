@@ -16,5 +16,11 @@ namespace RootToot
 
         public static int Std_Move = 1;
         public static int Prj_Move = 4;
+
+        public static int ETIME = 240;
+
+        public static ulong GlobalTime = 0;
+
+        public static bool DEBUG = false;
     }
 }

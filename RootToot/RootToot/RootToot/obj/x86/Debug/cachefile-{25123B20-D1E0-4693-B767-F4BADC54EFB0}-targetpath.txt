@@ -21,5 +21,15 @@ Content\life.xnb
 Content\spike.xnb
 Content\projectile.xnb
 Content\5dig.xnb
-Content\maps\lv2.xnb
+Content\maps\lv2_2.xnb
+Content\e_life.xnb
+Content\maps\lv3.xnb
+Content\maps\lv4.xnb
+Content\maps\lv5.xnb
+Content\maps\lv6.xnb
+Content\SFX\Piano\1.xnb
+Content\SFX\Piano\2.xnb
+Content\SFX\Piano\3.xnb
+Content\SFX\Piano\4.xnb
+Content\SFX\Spawn\e3s.xnb
 Content\maps\mapdata.txt

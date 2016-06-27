@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RootToot", "RootToot\RootToot\RootToot.csproj", "{B7BF45A9-275E-4F12-A316-37B9E10D5BE3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RootTootContent", "RootToot\RootTootContent\RootTootContent.contentproj", "{25123B20-D1E0-4693-B767-F4BADC54EFB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCodeRiddian", "..\..\..\Visual Studio 2010\Projects\NCodeRiddian\NCodeRiddian\NCodeRiddian.csproj", "{42EFABAF-7EB3-490E-A2FA-D51A97BB81EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCodeRiddian", "..\..\XNA-Utils\NCodeRiddian\NCodeRiddian\NCodeRiddian.csproj", "{42EFABAF-7EB3-490E-A2FA-D51A97BB81EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLoader", "..\..\..\Visual Studio 2010\Projects\DataLoader\DataLoader\DataLoader.csproj", "{CFB1BBAE-A9F3-4B6D-9CEB-68C08D47FB1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLoader", "..\..\XNA-Utils\DataLoader\DataLoader\DataLoader.csproj", "{CFB1BBAE-A9F3-4B6D-9CEB-68C08D47FB1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

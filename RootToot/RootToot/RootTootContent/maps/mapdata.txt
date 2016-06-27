@@ -1,9 +1,9 @@
 {
 	# MapData
 	# 000 empty
-	# 100 Vertical
-	# 010 Horz
-	# 001 HasNote
+	# 255 0 0 Vertical
+	# 0 255 0 Horz
+	# 0 0 200 HasNote
 
 	# Level1
 	item1:
@@ -60,7 +60,7 @@
 	}
 	item2:
 	{
-		fileloc: lv2
+		fileloc: lv2_2
 		spawnsqr:
 		{
 			tl: 2, 3
@@ -105,6 +105,277 @@
 				time: 1200
 				type: 6
 				from: br
+			}
+		}
+		plrspawn: 6, 6
+	}
+	##################################################################################                          LEVEL 3
+	item2:
+	{
+		fileloc: lv3
+		spawnsqr:
+		{
+			left: 3, 6
+			right: 10, 6
+		}
+		spawns:
+		{ 
+			data:		
+			{
+				time: 96
+				type: 4
+				from: left
+			}
+			data:		
+			{
+				time: 96
+				type: 4
+				from: right
+			}
+			data:		
+			{
+				time: 960
+				type: 2
+				from: left
+			}
+			data:		
+			{
+				time: 960
+				type: 2
+				from: right
+			}
+			data:		
+			{
+				time: 1020
+				type: 2
+				from: left
+			}
+			data:		
+			{
+				time: 1020
+				type: 2
+				from: right
+			}
+			data:		
+			{
+				time: 1080
+				type: 2
+				from: left
+			}
+			data:		
+			{
+				time: 1080
+				type: 2
+				from: right
+			}
+		}
+		plrspawn: 6, 6
+	}
+	##################################################################################                          LEVEL 4
+	item2:
+	{
+		fileloc: lv4
+		spawnsqr:
+		{
+			tl: 1, 1
+			tr: 12, 1
+			ml: 1, 6
+			mr: 12, 6
+			bl: 12, 11
+			br: 1, 11
+		}
+		spawns:
+		{ 
+			data:		
+			{
+				time: 30
+				type: 6
+				from: tl
+			}
+			data:		
+			{
+				time: 30
+				type: 6
+				from: tr
+			}
+			data:		
+			{
+				time: 30
+				type: 6
+				from: ml
+			}
+			data:		
+			{
+				time: 30
+				type: 6
+				from: mr
+			}
+			data:		
+			{
+				time: 30
+				type: 6
+				from: bl
+			}
+			data:		
+			{
+				time: 30
+				type: 6
+				from: br
+			}
+		}
+		plrspawn: 7, 6
+	}
+	##################################################################################                          LEVEL 5
+	item5 :
+	{
+		fileloc: lv5
+		spawnsqr:
+		{
+			a: 11, 0
+			b: 11, 2
+			c: 11, 4
+			d: 11, 6
+			e: 11, 8
+			f: 11, 10
+			g: 11, 12
+		}
+		spawns:
+		{ 
+			data:		
+			{
+				time: 30
+				type: 2
+				from: a
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: b
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: c
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: d
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: e
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: f
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: g
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: a
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: b
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: c
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: d
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: e
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: f
+			}
+			data:		
+			{
+				time: 30
+				type: 2
+				from: g
+			}
+		}
+		plrspawn: 0, 6
+	}
+	##################################################################################                          LEVEL 6
+	item6:
+	{
+		fileloc: lv6
+		spawnsqr:
+		{
+			a: 3, 2
+			b: 10, 2
+			c: 3, 10
+			d: 10, 10
+		}
+		spawns:
+		{ 
+			data:		
+			{
+				time: 64
+				type: 1
+				from: a
+			}
+			data:		
+			{
+				time: 64
+				type: 1
+				from: d
+			}
+			data:		
+			{
+				time: 640
+				type: 1
+				from: b
+			}
+			data:		
+			{
+				time: 640
+				type: 1
+				from: c
+			}
+			data:		
+			{
+				time: 640
+				type: 3
+				from: a
+			}
+			data:		
+			{
+				time: 640
+				type: 3
+				from: d
 			}
 		}
 		plrspawn: 6, 6

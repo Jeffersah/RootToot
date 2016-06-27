@@ -113,6 +113,13 @@ namespace RootToot
             }
         }
 
+        public void Flip()
+        {
+            tile = TargetTile();
+            direction = direction + 2;
+            direction %= 4;
+        }
+
         public virtual void OnReachedTile()
         {
 

@@ -17,7 +17,8 @@ namespace RootToot
         {
             image = new AnimatedImage("e6", Globals.StdFrame, 16, 5);
             respawns = true;
-            respawntime *= 6;
+            respawntime *= 3;
+            direction = GlobalRandom.random.Next(4);
         }
 
         public override void Update(Map m)
@@ -28,6 +29,7 @@ namespace RootToot
 
         public override void OnReachedTile()
         {
+            SFXManager.PlayPiano();
             for(int i = 0; i < 4; i++)
             {
                 valid[i] = false;

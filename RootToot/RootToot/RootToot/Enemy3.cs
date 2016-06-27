@@ -22,8 +22,10 @@ namespace RootToot
         {
             image = new AnimatedImage("e3", Globals.StdFrame, 32, 4);
             respawns = true;
-            respawntime *= 4;
+            respawntime *= 2;
             notespawntime = 0;
+            while (!isInBounds(TargetTile()) || m.myData.Map[TargetTile().X, TargetTile().Y] == 0)
+                direction++;
         }
 
         public override void Update(Map m)
@@ -50,6 +52,7 @@ namespace RootToot
                 {
                     myMap.allNotes.Add(new Note(currentPos));
                     notespawntime = MIN_SPAWN_TIME;
+                    SFXManager.PlayE3Spawn();
                 }
             }
 

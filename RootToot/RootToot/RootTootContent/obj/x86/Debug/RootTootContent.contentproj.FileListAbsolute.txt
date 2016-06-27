@@ -1,1 +1,2 @@
 C:\Users\great_000\Documents\Visual Studio 2015\Projects\RootToot\RootToot\RootTootContent\obj\x86\Debug\RootTootContent.contentprojResolveAssemblyReference.cache
+C:\Users\great_000\Documents\git\RootToot\RootToot\RootToot\RootTootContent\obj\x86\Debug\RootTootContent.contentprojResolveAssemblyReference.cache

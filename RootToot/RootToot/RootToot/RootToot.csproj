@@ -80,8 +80,11 @@
     <Compile Include="Enemy4.cs" />
     <Compile Include="Enemy1.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="Bonus.cs" />
+    <Compile Include="ExtraLife.cs" />
     <Compile Include="GameScreen.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="LevelData.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="Map.cs" />
@@ -94,6 +97,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="SFXManager.cs" />
     <Compile Include="TextRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -103,11 +107,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Visual Studio 2010\Projects\DataLoader\DataLoader\DataLoader.csproj">
+    <ProjectReference Include="..\..\..\..\XNA-Utils\DataLoader\DataLoader\DataLoader.csproj">
       <Project>{cfb1bbae-a9f3-4b6d-9ceb-68c08d47fb1d}</Project>
       <Name>DataLoader</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Visual Studio 2010\Projects\NCodeRiddian\NCodeRiddian\NCodeRiddian.csproj">
+    <ProjectReference Include="..\..\..\..\XNA-Utils\NCodeRiddian\NCodeRiddian\NCodeRiddian.csproj">
       <Project>{42efabaf-7eb3-490e-a2fa-d51a97bb81ec}</Project>
       <Name>NCodeRiddian</Name>
     </ProjectReference>

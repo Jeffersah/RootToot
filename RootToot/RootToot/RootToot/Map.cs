@@ -11,6 +11,11 @@ namespace RootToot
 {
     class Map
     {
+        const double ELIFE_SPAWN_CHANCE = .001;
+        const int MAX_BONUS = 480;
+
+        int currentBonus;
+
         static Image image_horz;
         static Image image_vert;
         
@@ -21,16 +26,19 @@ namespace RootToot
 
         public Player player;
         public List<Note> allNotes;
-        List<NoteProjectile> NoteProj;
+        public List<NoteProjectile> NoteProj;
         public List<Enemy> AllEnemies;
         public List<PopupPoints> points;
 
         public List<MapSpawner> spawners;
         
 
-        PlayScreen screen;
+        public PlayScreen screen;
 
         public bool paused;
+
+        public ExtraLife E_Life;
+        public Bonus bonus;
 
         public int Dead_reset;
 
@@ -51,7 +59,7 @@ namespace RootToot
             currentTime = 0;
             timePause = false;
 
-            player = new Player(new Point(data.PlayerSpawn.X * Globals.stdTile, data.PlayerSpawn.Y * Globals.stdTile));
+            player = new Player(new Point(data.PlayerSpawn.X * Globals.stdTile, data.PlayerSpawn.Y * Globals.stdTile), this);
 
             for(int x = 0; x < 14; x++)
             {
@@ -72,8 +80,67 @@ namespace RootToot
             paused = false;
         }
 
+        public bool isMainEnemy(Enemy e)
+        {
+            return e is Enemy1 || e is Enemy2 || e is Enemy3 || e is Enemy4 || e is Enemy5 || e is Enemy6;
+        }
+
+        public void ActivateBonus()
+        {
+            currentBonus = MAX_BONUS;
+            foreach (Enemy e in AllEnemies)
+                if(isMainEnemy(e))
+                    e.Freeze(MAX_BONUS);
+        }
+
         public void Update()
         {
+            if (KeyboardInputManager.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.NumPad9))
+                Globals.DEBUG = !Globals.DEBUG;
+            if (currentBonus > 0)
+            {
+                currentBonus--;
+            }
+
+            if(E_Life == null)
+            {
+                if(GlobalRandom.random.NextDouble() < ELIFE_SPAWN_CHANCE)
+                {
+                    Point pos = GlobalRandom.RandomFrom<Point>(myData.espawn_possible);
+                    E_Life = new ExtraLife(pos, Globals.ETIME);
+                    myData.espawn_possible.Remove(pos);
+                }
+            }
+            else
+            {
+                Point tmp = E_Life.currentPos;
+                E_Life.Update(this);
+                if (E_Life == null)
+                    myData.espawn_possible.Add(tmp);
+            }
+
+            if(bonus == null)
+            {
+                if (GlobalRandom.random.NextDouble() < ELIFE_SPAWN_CHANCE * 1.5)
+                {
+                    Point pos = GlobalRandom.RandomFrom<Point>(myData.espawn_possible);
+                    bonus = new Bonus(pos, Globals.ETIME * 2);
+                    myData.espawn_possible.Remove(pos);
+                }
+            }
+            else
+            {
+                Point tmp = bonus.currentPos;
+                bonus.Update(this);
+                if (bonus == null)
+                    myData.espawn_possible.Add(tmp);
+            }
+
+            if(allNotes.Count == 0)
+            {
+                screen.AdvanceLevel();
+            }
+
             foreach (PopupPoints p in points)
                 p.update();
             points.RemoveAll(x => !x.isAlive);
@@ -145,17 +212,19 @@ namespace RootToot
                     }
                 }
                 for (int j = AllEnemies.Count - 1; j >= 0; j--)
-                    AllEnemies[j].Update(this);
-                bool hitEnemy = false;
+                {
+                    if (AllEnemies[j].freeze == 0 || !isMainEnemy(AllEnemies[j]))
+                        AllEnemies[j].Update(this);
+                    else
+                        AllEnemies[j].freeze--;
+                }
                 if (!player.isGhost)
                 {
-                    foreach (Enemy e in AllEnemies)
+                    for (int j = AllEnemies.Count - 1; j >= 0; j--)
                     {
-                        if (Entity.EntitiesIntersect_Rect(e, player, 8 * 16))
-                            hitEnemy = true;
+                        if (Entity.EntitiesIntersect_Rect(AllEnemies[j], player, 8 * 16))
+                            HitEnemy(AllEnemies[j]);
                     }
-                    if (hitEnemy)
-                        HitEnemy();
                 }
             }
 
@@ -167,7 +236,7 @@ namespace RootToot
                     screen.PlayerDied();
                     paused = false;
                     AllEnemies.Clear();
-                    player = new Player(new Point(myData.PlayerSpawn.X * Globals.stdTile, myData.PlayerSpawn.Y * Globals.stdTile));
+                    player = new Player(new Point(myData.PlayerSpawn.X * Globals.stdTile, myData.PlayerSpawn.Y * Globals.stdTile), this);
                     NoteProj.Clear();
                     foreach (MapSpawner spawn in spawners)
                     {
@@ -190,10 +259,32 @@ namespace RootToot
             }
         }
 
-        public void HitEnemy()
+        public void HitEnemy(Enemy e)
         {
-            paused = true;
-            Dead_reset = 96;
+            if(e.freeze > 0)
+            {
+                if(e is Enemy4 || !isMainEnemy(e))
+                {
+                    paused = true;
+                    Dead_reset = 96;
+                }
+                else
+                {
+                    points.Add(new PopupPoints(e.PointValue, new Point(e.currentPos.X + 16, e.currentPos.Y + 6), 64));
+                    screen.score += e.PointValue;
+                    if (e.respawns)
+                    {
+                        MapSpawner spawnfrom = spawners[GlobalRandom.random.Next(spawners.Count)];
+                        spawnfrom.AddDeadCreep(e.etype, e.respawntime);
+                    }
+                    AllEnemies.Remove(e);
+                }
+            }
+            else if(!paused)
+            { 
+                paused = true;
+                Dead_reset = 96;
+            }
         }
 
         public void Draw(SpriteBatch sb)
@@ -215,7 +306,7 @@ namespace RootToot
                     }
                 }
             }
-
+      
             Camera.drawGeneric(sb, Globals.FullScreen, Color.Black * .3f);
 
             foreach(Note n in allNotes)
@@ -229,7 +320,15 @@ namespace RootToot
             }
 
             foreach (Enemy e in AllEnemies)
+            {
                 e.Draw(sb);
+                if (e.freeze > 0 && 
+                    (((Globals.GlobalTime / 20) % 2 == 0 && e.freeze > 90)||
+                    (e.freeze <= 90 && (Globals.GlobalTime / 10 ) % 2 == 0)))
+                {
+                    e.Draw_Froze(sb);
+                }
+            }
 
             foreach (MapSpawner spawn in spawners)
                 spawn.Draw(sb);
@@ -238,6 +337,12 @@ namespace RootToot
             {
                 player.Draw(sb);
             }
+
+
+            if (E_Life != null)
+                E_Life.Draw(sb);
+            if (bonus != null)
+                bonus.Draw(sb);
 
             foreach (PopupPoints p in points)
                 p.Draw(sb);

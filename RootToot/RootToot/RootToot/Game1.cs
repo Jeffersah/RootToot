@@ -55,6 +55,8 @@ namespace RootToot
             TextureManager.loadAllImages(Content);
             currentScreen = new MainMenu();
             LevelData.Load();
+            Enemy.Load();
+            SFXManager.Load(Content);
             // TODO: use this.Content to load your game content here
         }
 

@@ -10,6 +10,8 @@ namespace RootToot
 {
     class PlayScreen : GameScreen
     {
+        const int MAX_PAUSE = 180;
+
         Map world;
         int currentLevel;
 
@@ -21,23 +23,44 @@ namespace RootToot
 
         Game1 mymain;
 
+        public int currentPause = 0;
+
         public PlayScreen()
         {
             lives = 3;
-            currentLevel = 1;
+            currentLevel = 0;
             world = new Map(LevelData.AllData[currentLevel], this);
             Camera.addX(-Globals.stdTile);
             Camera.addY(-Globals.stdTile * 2);
             overlay = new Image("overlay");
             life = new Image("life");
             score = 0;
+            currentPause = -1;
+        }
+
+        public void AdvanceLevel()
+        {
+            currentPause = MAX_PAUSE;
         }
 
         public override void Update(Game1 main)
         {
-            mymain = main;
-            base.Update(main);
-            world.Update();
+            Globals.GlobalTime++;
+            if (currentPause == 0)
+            {
+                currentLevel++;
+                lives++;
+                world = new Map(LevelData.AllData[currentLevel], this);
+                currentPause = -1;
+            }
+            else if (currentPause > 0)
+                currentPause--;
+            else
+            { 
+                mymain = main;
+                base.Update(main);
+                world.Update();
+            }
         }
 
         public void PlayerDied()
